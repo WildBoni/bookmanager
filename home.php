@@ -8,21 +8,7 @@
 
   $query = $con->query("SELECT * FROM users WHERE id=".$_SESSION['userSession']);
   $userRow=$query->fetch_array();
-
-  $UID = (int)$_GET['id'];
-  $sql ="SELECT * FROM item WHERE id = '$UID'";
-  $result = $con->query($sql);
-
-  if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      $name = $row['name'];
-      $title = $row['title'];
-      echo "Ready to edit";
-    }
-  }else {
-    echo 'No entry found. <a href="javascript:history.back()">Go back</a>';
-  }
+  $con->close();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,20 +24,18 @@
     include 'header.php';
   ?>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12">
-        <form action="update.php" method="post">
-          <input type="hidden" name="ID" value="<?=$UID;?>">
-          Name: <input type="text" name="name" value="<?=$name?>"><br>
-          Title: <input type="text" name="title" value="<?=$title?>"><br>
-          <input type="Submit">
-        </form>
+      <div class="row">
+        <div class="col-sm-12">
+        	<h2><a href="view.php">VIEW ITEMS</a></h2>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-sm-12">
+        <h2><a href="insert.php">INSERT NEW ITEMS</a></h2>
+        </div>
+      </div>
   </div>
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </body>
-<?php
-  $con->close();
-?>
+</html>
