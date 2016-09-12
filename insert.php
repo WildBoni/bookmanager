@@ -12,6 +12,9 @@
 	$sql = "SELECT id, category FROM category";
 	$result = $con->query($sql);
 
+	$sql2 = "SELECT id, language FROM language";
+	$result2 = $con->query($sql2);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,6 +53,16 @@
 						    }
 							?>
 	          </select>
+						<label for="dropdown">Language:</label>
+	          <select name="languageID">
+							<?php
+						    while ($row2 = $result2->fetch_assoc()) {
+					        echo "<option value=\"{$row2['id']}\">";
+					        echo $row2['language'];
+					        echo "</option>";
+						    }
+							?>
+	          </select>
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	 	    </form>
@@ -61,6 +74,14 @@
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	 	    </form>
+				<form  method="post" action="lang_input.php">
+					<h3>NEW LANGUAGE</h3>
+					<div class="form-group">
+						<label for="name">LANGUAGE:</label>
+						<input type="text" class="form-control" name="lang">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
 	    </div>
 	  </div>
 	</div>

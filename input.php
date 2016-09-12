@@ -5,13 +5,14 @@
     $name = htmlspecialchars($_POST['name']);
     $title = htmlspecialchars($_POST['title']);
     $categoryID = htmlspecialchars($_POST['categoryID']);
+    $languageID = htmlspecialchars($_POST['languageID']);
   }
 
-  $sql = "INSERT INTO item (name, title, category)
-  VALUES ('$name', '$title', '$categoryID')";
+  $sql = "INSERT INTO item (name, title, category, language1)
+  VALUES ('$name', '$title', '$categoryID', '$languageID')";
 
   if ($con->query($sql) === TRUE) {
-    echo "New record created successfully";
+    echo "<p>New item created successfully</p><p><a href='view.php'>Back to Item View</a></p>";
   } else {
     echo "Error: " . $sql . "<br>" . $con->error;
   }

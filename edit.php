@@ -18,6 +18,9 @@
     while($row = $result->fetch_assoc()) {
       $name = $row['name'];
       $title = $row['title'];
+      $surname = $row['surname'];
+      $other = $row['other'];
+      $note = $row['note'];
       echo "Ready to edit";
     }
   }else {
@@ -43,7 +46,10 @@
         <form action="update.php" method="post">
           <input type="hidden" name="ID" value="<?=$UID;?>">
           Name: <input type="text" name="name" value="<?=$name?>"><br>
+          Surname: <input type="text" name="surname" value="<?=$surname?>"><br>
           Title: <input type="text" name="title" value="<?=$title?>"><br>
+          Other authors: <input type="text" name="other" value="<?=$other?>"><br>
+          Note: <input type="text" name="note" value="<?=$note?>"><br>
           <input type="Submit">
         </form>
       </div>

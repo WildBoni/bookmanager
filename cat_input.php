@@ -10,7 +10,7 @@
   VALUES ('$cat')";
 
   if ($con->query($sql) === TRUE) {
-    echo "New category created successfully";
+    echo "<p>New category created successfully</p><p><a href='view.php'>Back to Item View</a></p>";
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
