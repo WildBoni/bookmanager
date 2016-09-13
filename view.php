@@ -14,8 +14,29 @@
 <html>
 <head>
 	<title>BKMNGR</title>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" >
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+  <script>
+    // Delete database value code
+    $(document).on('click','.delete',function(){
+      var element = $(this);
+      var del_id = element.attr('data-id');
+      var info = 'id=' + del_id;
+      if(confirm("Are you sure you want to delete this?")) {
+        $.ajax({
+          type: "POST",
+          url: "ajaxdelete.php",
+          data: info,
+          success: function(){
+          }
+        });
+        $(this).parents("tr").animate({ backgroundColor: "#003" }, "slow")
+        .animate({ opacity: "hide" }, "slow");
+      }
+      return false;
+    });
+  </script>
 </head>
 <body>
   <?php
@@ -48,6 +69,7 @@
                 <th>Other authors</th>
                 <th>Note</th>
                 <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -66,6 +88,7 @@
                   <td><?php echo $row["other"] ?></td>
                   <td><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
+                  <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                 </tr>
               <?php
                   }

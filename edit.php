@@ -13,6 +13,12 @@
   $sql ="SELECT * FROM item WHERE id = '$UID'";
   $result = $con->query($sql);
 
+  $sql2 = "SELECT id, category FROM category";
+	$result2 = $con->query($sql2);
+
+  $sql3 = "SELECT id, language FROM language";
+	$result3 = $con->query($sql3);
+
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
@@ -21,6 +27,9 @@
       $surname = $row['surname'];
       $other = $row['other'];
       $note = $row['note'];
+      $category = $row['category'];
+      $language1 = $row['language1'];
+      $language2 = $row['language2'];
       echo "Ready to edit";
     }
   }else {
@@ -50,6 +59,52 @@
           Title: <input type="text" name="title" value="<?=$title?>"><br>
           Other authors: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
+          <div class="form-group">
+	        	<label for="dropdown">Category:</label>
+	          <select name="categoryID">
+							<?php
+						    while ($row2 = $result2->fetch_assoc()) {
+                  if ($row2['id'] == trim($category)) {
+                    echo "<option value='" . $row2['id'] . "' selected>" . $row2['category'] . "</option>";
+                  }
+                  else {
+                    echo "<option value='" . $row2['id'] . "'>" . $row2['category'] . "</option>";
+                  }
+						    }
+							?>
+	          </select>
+	        </div>
+          <div class="form-group">
+            <label for="dropdown">Language1:</label>
+            <select name="language1ID">
+              <?php
+                while ($row3 = $result3->fetch_assoc()) {
+                  if ($row3['id'] == trim($language1)) {
+                    echo "<option value='" . $row3['id'] . "' selected>" . $row3['language'] . "</option>";
+                  }
+                  else {
+                    echo "<option value='" . $row3['id'] . "'>" . $row3['language'] . "</option>";
+                  }
+                }
+              ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dropdown">Language2:</label>
+            <select name="language2ID">
+              <?php
+                mysqli_data_seek($result3,0);
+                while ($row3 = $result3->fetch_assoc()) {
+                  if ($row3['id'] == trim($language2)) {
+                    echo "<option value='" . $row3['id'] . "' selected>" . $row3['language'] . "</option>";
+                  }
+                  else {
+                    echo "<option value='" . $row3['id'] . "'>" . $row3['language'] . "</option>";
+                  }
+                }
+              ?>
+            </select>
+	        </div>
           <input type="Submit">
         </form>
       </div>

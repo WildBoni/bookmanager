@@ -33,14 +33,26 @@
 	      <h2>INSERT NEW ITEMS</h2>
 	<!--      	<form method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">   -->
 	      <form  method="post" action="input.php">
-	        <h3>NEW BOOK</h3>
+	        <h3>NEW ITEM</h3>
 	        <div class="form-group">
 	          <label for="name">Name:</label>
 	          <input type="text" class="form-control" name="name">
 	        </div>
+					<div class="form-group">
+	          <label for="surname">Surame:</label>
+	          <input type="text" class="form-control" name="surname">
+	        </div>
 	        <div class="form-group">
 	          <label for="title">Title:</label>
 	          <input type="text" class="form-control" name="title">
+	        </div>
+					<div class="form-group">
+	          <label for="other">Other:</label>
+	          <input type="text" class="form-control" name="other">
+	        </div>
+					<div class="form-group">
+	          <label for="note">Note:</label>
+	          <input type="text" class="form-control" name="note">
 	        </div>
 	        <div class="form-group">
 	        	<label for="dropdown">Category:</label>
@@ -53,9 +65,22 @@
 						    }
 							?>
 	          </select>
-						<label for="dropdown">Language:</label>
-	          <select name="languageID">
+					</div>
+	        <div class="form-group">
+						<label for="dropdown">Language1:</label>
+	          <select name="language1ID">
 							<?php
+						    while ($row2 = $result2->fetch_assoc()) {
+					        echo "<option value=\"{$row2['id']}\">";
+					        echo $row2['language'];
+					        echo "</option>";
+						    }
+							?>
+	          </select>
+						<label for="dropdown">Language2:</label>
+	          <select name="language2ID">
+							<?php
+								mysqli_data_seek($result2,0);
 						    while ($row2 = $result2->fetch_assoc()) {
 					        echo "<option value=\"{$row2['id']}\">";
 					        echo $row2['language'];
