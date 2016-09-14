@@ -24,9 +24,12 @@
   <script>
     $(document).ready(function() {
       $('#example').DataTable( {
-        "lengthMenu": [[50, 100, 150, -1], [50, 100, 150, "All"]]
+        "columnDefs": [
+          { "width": "5%", "targets": 0 }
+        ]
       } );
     } );
+
     // Delete database value code
     $(document).on('click','.delete',function(){
       var element = $(this);
@@ -35,7 +38,7 @@
       if(confirm("Are you sure you want to delete this?")) {
         $.ajax({
           type: "POST",
-          url: "ajaxdelete.php",
+          url: "ajaxdelete_language.php",
           data: info,
           success: function(){
           }
@@ -55,12 +58,8 @@
 	  <div class="row">
 	    <div class="col-sm-12">
         <?php
-          $sql = "SELECT item.name, L1.language AS language1, L2.language AS language2,
-            item.id, item.title, item.surname, item.other, item.note, category.category
-            FROM item LEFT JOIN category ON item.category=category.id
-            LEFT JOIN language L1 ON (L1.Id = item.language1)
-            LEFT JOIN language L2 ON (L2.Id = item.language2)
-            ORDER BY surname ASC, title ASC";
+          $sql = "SELECT language.id, language.language
+            FROM language";
           $result = $con->query($sql);
 
           if ($result->num_rows > 0) {
@@ -70,14 +69,7 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Surname</th>
-                <th>Name</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Language1</th>
-                <th>Language2</th>
-                <th>Other authors</th>
-                <th>Note</th>
+                <th>Language</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -89,15 +81,8 @@
               ?>
                 <tr>
                   <td><?php echo $row["id"] ?></td>
-                  <td><?php echo $row["surname"] ?></td>
-                  <td><?php echo $row["name"] ?></td>
-                  <td><?php echo $row["title"] ?></td>
-                  <td><?php echo $row["category"] ?></td>
-                  <td><?php echo $row["language1"] ?></td>
-                  <td><?php echo $row["language2"] ?></td>
-                  <td><?php echo $row["other"] ?></td>
-                  <td><?php echo $row["note"] ?></td>
-                  <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
+                  <td><?php echo $row["language"] ?></td>
+                  <td><?php echo "<a href='edit_language.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                 </tr>
               <?php

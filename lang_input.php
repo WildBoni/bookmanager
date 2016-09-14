@@ -3,14 +3,14 @@
 
   $name = $title = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cat = htmlspecialchars($_POST['cat']);
+    $lang = htmlspecialchars($_POST['lang']);
   }
 
-  $sql = "INSERT INTO category (category)
-  VALUES ('$cat')";
+  $sql = "INSERT INTO language (language)
+  VALUES ('$lang')";
 
   if ($con->query($sql) === TRUE) {
-    echo "<p>New category created successfully</p><p><a href='view_category.php'>Back to Category View</a></p>";
+    echo "<p>New language created successfully</p><p><a href='view_language.php'>Back to Language View</a></p>";
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
