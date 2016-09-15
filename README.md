@@ -19,7 +19,19 @@ These are the main features (please note that BKMNGR is still under development)
 * Auto-create MySql database structure through php install page
 * AJAX implementation for infinite scrolling, autocomplete suggestions, and more!
 
+## Installation
+
+* First of all, make sure you have mysql and php installed on your server!
+* Download the whole package, unzip it and upload it to your server
+* Run install.php and compile the form with mysql database connection
+* Log in and start creating your library!
+
+After the first installation, remember to delete install.php and create.php!
+
 ## Other cool ideas
+
+These features may be implemented later on...
+
 * ISBN integration for instant book registration through barcorde scan
 * Mobile app
 

@@ -1,6 +1,10 @@
 <?php
   $servername = "localhost";
-  $username = "boniadm";
-  $password = "overlord15";
+  $dbusername = "boniadm";
+  $dbpassword = "overlord15";
   $dbname = "books";
+
+  $useremail = "tst@sk.it";
+  $userpassword = "studiokey";
+  $username = "keytest";
 ?>
