@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $dbname = htmlspecialchars($_POST['dbname']);
 
   $useremail = htmlspecialchars($_POST['useremail']);
-  $userpassword = htmlspecialchars($_POST['username']);
-  $username = htmlspecialchars($_POST['userpassword']);
+  $userpassword = htmlspecialchars($_POST['userpassword']);
+  $username = htmlspecialchars($_POST['username']);
 
 }
 
@@ -26,6 +26,8 @@ $data = "<?php
 ?>";
 
 file_put_contents("config.php", $data);
+
+$hashed_password = password_hash($userpassword, PASSWORD_DEFAULT); // this function works only in PHP 5.5 or latest version
 
 include_once 'config.php';
 
@@ -62,28 +64,28 @@ $sql1 = "CREATE TABLE IF NOT EXISTS users (
 );";
 
 $sql1 .= "INSERT INTO users (username, password, email)
-VALUES ('$username', '$userpassword', '$useremail');";
+VALUES ('$username', '$hashed_password', '$useremail');";
 
-$sql1 .= "CREATE TABLE IF NOT EXISTS category (
+$sql1 .= "CREATE TABLE IF NOT EXISTS language (
   id int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   language varchar(150) NOT NULL
 );";
 
-$sql1 .= "CREATE TABLE IF NOT EXISTS language (
+$sql1 .= "CREATE TABLE IF NOT EXISTS category (
   id int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category varchar(150) NOT NULL
 );";
 
-$sql1 .= "CREATE TABLE IF NOT EXISTS item (
+$sql1 .= "CREATE TABLE IF NOT EXISTS items (
   id int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  category varchar(8) NOT NULL,
-  language1 varchar(150) NOT NULL,
-  language2 varchar(150) NOT NULL,
-  name varchar(150) NOT NULL,
-  note varchar(255) NOT NULL,
-  other varchar(255) NOT NULL,
-  surname varchar(150) NOT NULL,
-  title varchar(255) NOT NULL
+  category varchar(8),
+  language1 varchar(150),
+  language2 varchar(150),
+  name varchar(150),
+  note varchar(255),
+  other varchar(255),
+  surname varchar(150),
+  title varchar(255)
 );";
 
 

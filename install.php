@@ -27,13 +27,13 @@
 					</div>
           <div class="form-group">
 						<div class="row">
-						  <div class="col-sm-6">
-			          <label for="dbpassword">DB password:</label>
-			          <input type="text" class="form-control" name="dbpassword">
-			        </div>
 							<div class="col-sm-6">
 			          <label for="dbusername">DB username:</label>
 			          <input type="text" class="form-control" name="dbusername">
+			        </div>
+						  <div class="col-sm-6">
+			          <label for="dbpassword">DB password:</label>
+			          <input type="text" class="form-control" name="dbpassword">
 			        </div>
 						</div>
 					</div>

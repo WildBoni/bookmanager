@@ -64,6 +64,9 @@
 					</div>
 	        <div class="form-group">
 						<div class="row">
+							<?php
+								if ($result !== FALSE) {
+							?>
 							<div class="col-sm-4">
 			        	<label for="dropdown">Category:</label>
 			          <select name="categoryID">
@@ -76,9 +79,13 @@
 									?>
 	          		</select>
 							</div>
-			        <div class="col-sm-4">
+							<?php
+								}
+								if ($result !== FALSE) {
+							?>
+				      <div class="col-sm-4">
 								<label for="dropdown">Language1:</label>
-			          <select name="language1ID">
+				        <select name="language1ID">
 									<?php
 								    while ($row2 = $result2->fetch_assoc()) {
 							        echo "<option value=\"{$row2['id']}\">";
@@ -86,11 +93,11 @@
 							        echo "</option>";
 								    }
 									?>
-			          </select>
+				        </select>
 							</div>
 							<div class="col-sm-4">
 								<label for="dropdown">Language2:</label>
-			          <select name="language2ID">
+				        <select name="language2ID">
 									<?php
 										mysqli_data_seek($result2,0);
 								    while ($row2 = $result2->fetch_assoc()) {
@@ -99,11 +106,14 @@
 							        echo "</option>";
 								    }
 									?>
-			          </select>
-			        </div>
+				        </select>
+				      </div>
+							<?php
+								}
+							?>
 						</div>
 					</div>
-	        <button type="submit" class="btn btn-default">Submit</button>
+	        <button type="submit" class="btn btn-default">Submit new item</button>
 	 	    </form>
 				<hr>
 	      <form  method="post" action="cat_input.php">
@@ -112,7 +122,7 @@
 	          <label for="name">CAT:</label>
 	          <input type="text" class="form-control" name="cat">
 	        </div>
-	        <button type="submit" class="btn btn-default">Submit</button>
+	        <button type="submit" class="btn btn-default">Submit new category</button>
 	 	    </form>
 				<hr>
 				<form  method="post" action="lang_input.php">
@@ -121,7 +131,7 @@
 						<label for="name">LANGUAGE:</label>
 						<input type="text" class="form-control" name="lang">
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="submit" class="btn btn-default">Submit new language</button>
 				</form>
 	    </div>
 	  </div>
