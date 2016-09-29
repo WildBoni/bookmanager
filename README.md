@@ -11,13 +11,13 @@ Book Manager is an open-source online database where you can store your books.
 
 These are the main features (please note that BKMNGR is still under development):
 
-* Responsive layout: access your library database from mobile
-* Edit/Update your library
-* Advanced search filters
-* Keep track of books you lend
-* Login / Subscribe with different accounts (and different libraries)
-* Auto-create MySql database structure through php install page
-* AJAX implementation for infinite scrolling, autocomplete suggestions, and more!
+[x] Responsive layout: access your library database from mobile
+[x] Edit/Update your library
+[x] Advanced search filters
+[] Keep track of books you lend
+[] Login / Subscribe with different accounts (and different libraries)
+[x] Auto-create MySql database structure through php install page
+[] AJAX implementation for infinite scrolling, autocomplete suggestions, and more!
 
 ## Installation
 
