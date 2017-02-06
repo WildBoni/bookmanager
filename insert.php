@@ -32,7 +32,7 @@
 	    <div class="col-sm-12">
 	      <h1>INSERT NEW ITEMS</h1>
 	<!--      	<form method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">   -->
-	      <form class="form"  method="post" action="input.php">
+	      <form class="form"  method="post" enctype="multipart/form-data" action="input.php" >
 	        <h2>NEW ITEM</h2>
 					<div class="form-group">
 						<div class="row">
@@ -62,6 +62,14 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								<input type="file" class="form-control" name="fileToUpload" id="fileToUpload">
+								<input type="submit" class="btn btn-default" value="Upload Image" name="submit">
+							</div>
+						</div>
+			  		</div>
 	        <div class="form-group">
 						<div class="row">
 							<?php
