@@ -56,7 +56,7 @@
 	    <div class="col-sm-12">
         <?php
           $sql = "SELECT item.name, L1.language AS language1, L2.language AS language2,
-            item.id, item.title, item.surname, item.other, item.note, category.category
+            item.id, item.title, item.surname, item.other, item.note, item.image, category.category
             FROM item LEFT JOIN category ON item.category=category.id
             LEFT JOIN language L1 ON (L1.Id = item.language1)
             LEFT JOIN language L2 ON (L2.Id = item.language2)
@@ -80,6 +80,7 @@
                 <th>Note</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Image</th>
               </tr>
             </thead>
             <tbody>
@@ -99,6 +100,13 @@
                   <td><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
+                  <td>                
+                  	<?php if (!empty($row["image"])) { ?>
+				  		<img src="uploads/<?php echo $row["image"] ?>"
+				  	<?php } else { ?>
+							 <p>No img</p>
+					<?php } ?>
+				  </td>
                 </tr>
               <?php
                   }

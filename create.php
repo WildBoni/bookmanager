@@ -76,7 +76,7 @@ $sql1 .= "CREATE TABLE IF NOT EXISTS category (
   category varchar(150) NOT NULL
 );";
 
-$sql1 .= "CREATE TABLE IF NOT EXISTS items (
+$sql1 .= "CREATE TABLE IF NOT EXISTS item (
   id int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category varchar(8),
   language1 varchar(150),
@@ -86,6 +86,7 @@ $sql1 .= "CREATE TABLE IF NOT EXISTS items (
   other varchar(255),
   surname varchar(150),
   title varchar(255)
+  image varchar(255)
 );";
 
 

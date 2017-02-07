@@ -1,4 +1,10 @@
 <?php
+
+	$target_dir = "uploads/";
+	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$uploadOk = 1;
+	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
   include_once 'dbconnect.php';
   $name = $title = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,24 +16,13 @@
     $categoryID = htmlspecialchars($_POST['categoryID']);
     $language1ID = htmlspecialchars($_POST['language1ID']);
     $language2ID = htmlspecialchars($_POST['language2ID']);
+	$image=($_FILES['fileToUpload']['name']);
   }
 
-  $sql = "INSERT INTO item (name, surname, other, note, title, category, language1, language2)
-  VALUES ('$name', '$title', '$surname', '$other', '$note', '$categoryID', '$language1ID', '$language2ID')";
+  $sql = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)
+  VALUES ('$name', '$title', '$surname', '$other', '$note', '$categoryID', '$language1ID', '$language2ID', '$image')";
 
-  if ($con->query($sql) === TRUE) {
-    echo "<p>New item created successfully</p><p><a href='view.php'>Back to Item View</a></p>";
-  } else {
-    echo "Error: " . $sql . "<br>" . $con->error;
-  }
 
-  $con->close();
-?>
-<?php
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -66,4 +61,12 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
+
+  if ($con->query($sql) === TRUE) {
+    echo "<p>New item created successfully</p><p><a href='view.php'>Back to Item View</a></p>";
+  } else {
+    echo "Error: " . $sql . "<br>" . $con->error;
+  }
+
+  $con->close();
 ?>
