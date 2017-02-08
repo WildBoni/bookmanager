@@ -66,7 +66,6 @@
 						<div class="row">
 							<div class="col-md-12">
 								<input type="file" class="form-control" name="fileToUpload" id="fileToUpload">
-								<input type="submit" class="btn btn-default" value="Upload Image" name="submit">
 							</div>
 						</div>
 			  		</div>

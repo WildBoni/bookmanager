@@ -30,6 +30,7 @@
       $category = $row['category'];
       $language1 = $row['language1'];
       $language2 = $row['language2'];
+      $image = $row['image'];
       echo "Ready to edit";
     }
   }else {
@@ -52,13 +53,27 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
-        <form action="update.php" method="post">
+        <form class="form" action="update.php" enctype="multipart/form-data"  method="post">
           <input type="hidden" name="ID" value="<?=$UID;?>">
           Name: <input type="text" name="name" value="<?=$name?>"><br>
           Surname: <input type="text" name="surname" value="<?=$surname?>"><br>
           Title: <input type="text" name="title" value="<?=$title?>"><br>
           Other authors: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
+          <div>
+             	<?php if (!empty($image)) { ?>
+			  		<img src="uploads/<?php echo $image ?>"
+			  	<?php } else { ?>
+					 <p>No img</p>
+				<?php } ?>	        
+	        	<div class="form-group">
+					<div class="row">
+						<div class="col-md-12">
+							<input type="file" class="form-control" name="fileToUpload2" id="fileToUpload2">
+						</div>
+					</div>
+				</div>
+			</div>
           <div class="form-group">
 	        	<label for="dropdown">Category:</label>
 	          <select name="categoryID">
@@ -105,6 +120,7 @@
               ?>
             </select>
 	        </div>
+	        
           <input type="Submit">
         </form>
       </div>
