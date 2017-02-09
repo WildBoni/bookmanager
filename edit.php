@@ -44,11 +44,11 @@
   <title>Welcome - <?php echo $userRow['email']; ?></title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport" >
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-	  <script src="js/jquery-1.10.2.js"></script>
+	<script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.min.js"></script>
-	  <script>
+	<script>
     $(document).on('click','.delete',function(){
-		
+
       var element = $(this);
       var del_id = element.attr('data-id');
       var info = 'id=' + del_id;
@@ -82,22 +82,22 @@
           Other authors: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
           <div id="deleteimg">
-             	<?php if (!empty($image)) { ?>
-			  		<img src="uploads/<?php echo $image ?>">
-			  	<?php } else { ?>
-					 <!-- <img src="uploads/no_img.jpg"> -->
-				<?php } ?>	
-		  </div>   
-      		<?php if (!empty($image)) { ?> 
+            <?php if (!empty($image)) { ?>
+			  		  <img src="uploads/<?php echo $image ?>">
+			  	  <?php } else { ?>
+              <!-- <img src="uploads/no_img.jpg"> -->
+				    <?php } ?>
+		      </div>
+      		<?php if (!empty($image)) { ?>
        		<a data-id="<?=$UID;?>" class="delete" href="#">Delete</a>
        		<?php } ?>
 	       	<div class="form-group">
-				<div class="row">
-					<div class="col-md-12">
-						<input type="file" class="form-control" name="fileToUpload2" id="fileToUpload2">
-					</div>
-				</div>
-			</div>
+    				<div class="row">
+    					<div class="col-md-12">
+    						<input type="file" class="form-control" name="fileToUpload2" id="fileToUpload2">
+    					</div>
+    				</div>
+    			</div>
 
           <div class="form-group">
 	        	<label for="dropdown">Category:</label>
@@ -145,7 +145,7 @@
               ?>
             </select>
 	        </div>
-	        
+
           <input type="Submit">
         </form>
       </div>

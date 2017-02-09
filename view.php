@@ -100,16 +100,16 @@
                   <td><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
-                  <td>                
-                  	<?php if (!empty($row["image"])) { ?>
-				  		<img src="uploads/<?php echo $row["image"] ?>">
-				  	<?php } else { ?>
-					<!-- <img src="uploads/no_img.jpg"> -->
-					<?php } ?>
-				  </td>
+                  <td>
+                    <?php if (!empty($row["image"])) { ?>
+                      <img src="uploads/<?php echo $row["image"] ?>">
+                    <?php } else { ?>
+                      <!-- <img src="uploads/no_img.jpg"> -->
+                      <?php } ?>
+                    </td>
                 </tr>
               <?php
-                  }
+                }
                 } else {
                   echo "0 results";
                 }
@@ -122,6 +122,6 @@
 	  </div>
 	</div>
 
-<script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

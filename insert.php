@@ -99,8 +99,8 @@
 							        echo $row2['language'];
 							        echo "</option>";
 								    }
-									?>
-				        </select>
+										?>
+									</select>
 							</div>
 							<div class="col-sm-4">
 								<label for="dropdown">Language2:</label>

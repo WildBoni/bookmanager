@@ -24,8 +24,8 @@
       header("Location: home.php");
     } else {
       $msg = "<div class='alert alert-danger'>
-         <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Invalid Username or Password !
-        </div>";
+        <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Invalid Username or Password !
+      </div>";
     }
     $con->close();
   }

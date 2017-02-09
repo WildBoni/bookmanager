@@ -7,8 +7,8 @@ if (!isset($_SESSION['userSession'])) {
 }
 
 if($_POST['id']!=""):
-    extract($_POST);
-    $id=mysqli_real_escape_string($con,$id);
-    $sql = $con->query("DELETE FROM language WHERE id='$id'");
+  extract($_POST);
+  $id=mysqli_real_escape_string($con,$id);
+  $sql = $con->query("DELETE FROM language WHERE id='$id'");
 endif;
 ?>

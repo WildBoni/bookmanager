@@ -1,5 +1,4 @@
 <?php
-
   include_once 'dbconnect.php';
 
   $ud_ID = (int)$_POST["ID"];
@@ -12,9 +11,9 @@
     WHERE id='$ud_ID'";
 
   if ($con->query($sql) === TRUE) {
-      echo "<p>Record ($ud_ID) updated successfully</p><p><a href='view_language.php'>Back to Item View</a></p>";
+    echo "<p>Record ($ud_ID) updated successfully</p><p><a href='view_language.php'>Back to Item View</a></p>";
   } else {
-      echo "Error: ($ud_ID) Not Updated";
+    echo "Error: ($ud_ID) Not Updated";
   }
 
   $con->close();
