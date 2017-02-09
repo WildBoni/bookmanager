@@ -102,9 +102,9 @@
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                   <td>                
                   	<?php if (!empty($row["image"])) { ?>
-				  		<img src="uploads/<?php echo $row["image"] ?>"
+				  		<img src="uploads/<?php echo $row["image"] ?>">
 				  	<?php } else { ?>
-							 <p>No img</p>
+					<!-- <img src="uploads/no_img.jpg"> -->
 					<?php } ?>
 				  </td>
                 </tr>

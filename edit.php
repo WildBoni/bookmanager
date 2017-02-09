@@ -44,6 +44,27 @@
   <title>Welcome - <?php echo $userRow['email']; ?></title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport" >
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+	  <script>
+    $(document).on('click','.delete',function(){
+		
+      var element = $(this);
+      var del_id = element.attr('data-id');
+      var info = 'id=' + del_id;
+      if(confirm("Are you sure you want to delete this?")) {
+        $.ajax({
+          type: "POST",
+          url: "ajaxupdate.php",
+          data: info,
+          success: function(){
+			$("#deleteimg").html("<p>Image deleted</p>");
+          }
+        });
+      }
+      return false;
+    });
+  </script>
 </head>
 
 <body>
@@ -60,20 +81,24 @@
           Title: <input type="text" name="title" value="<?=$title?>"><br>
           Other authors: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
-          <div>
+          <div id="deleteimg">
              	<?php if (!empty($image)) { ?>
-			  		<img src="uploads/<?php echo $image ?>"
+			  		<img src="uploads/<?php echo $image ?>">
 			  	<?php } else { ?>
-					 <p>No img</p>
-				<?php } ?>	        
-	        	<div class="form-group">
-					<div class="row">
-						<div class="col-md-12">
-							<input type="file" class="form-control" name="fileToUpload2" id="fileToUpload2">
-						</div>
+					 <!-- <img src="uploads/no_img.jpg"> -->
+				<?php } ?>	
+		  </div>   
+      		<?php if (!empty($image)) { ?> 
+       		<a data-id="<?=$UID;?>" class="delete" href="#">Delete</a>
+       		<?php } ?>
+	       	<div class="form-group">
+				<div class="row">
+					<div class="col-md-12">
+						<input type="file" class="form-control" name="fileToUpload2" id="fileToUpload2">
 					</div>
 				</div>
 			</div>
+
           <div class="form-group">
 	        	<label for="dropdown">Category:</label>
 	          <select name="categoryID">
@@ -126,8 +151,7 @@
       </div>
     </div>
   </div>
-  <script src="js/jquery-1.10.2.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+
 </body>
 <?php
   $con->close();
