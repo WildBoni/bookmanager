@@ -35,6 +35,14 @@ These features may be implemented later on...
 * ISBN integration for instant book registration through barcorde scan
 * Mobile app
 
+## Sources
+
+Book Manager is powered by:
+
+* JQuery
+* Bootstrap
+* DataTables
+
 ## Help me!
 
 Book Manager is an open-source project and any help is much appreciated: feel free to join in!
