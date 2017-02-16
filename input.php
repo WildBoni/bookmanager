@@ -16,7 +16,7 @@
     $categoryID = htmlspecialchars($_POST['categoryID']);
     $language1ID = htmlspecialchars($_POST['language1ID']);
     $language2ID = htmlspecialchars($_POST['language2ID']);
-	$image=($_FILES['fileToUpload']['name']);
+		$image=($_FILES['fileToUpload']['name']);
   }
 
   $sql = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)

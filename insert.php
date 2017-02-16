@@ -68,7 +68,7 @@
 								<input type="file" class="form-control" name="fileToUpload" id="fileToUpload">
 							</div>
 						</div>
-			  		</div>
+			  	</div>
 	        <div class="form-group">
 						<div class="row">
 							<?php
