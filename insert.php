@@ -49,28 +49,26 @@
 	}
 	//on the click of the submit button
 	$(document).on('click','#btn_submit',function(){
-	  //get the form values
-		var name = $('#name').val();
-		var surname = $('#surname').val();
-		var other = $('#other').val();
-		var title = $('#title').val();
-		var note = $('#note').val();
-		var category = $('#category').val();
-		var language1 = $('#language1').val();
-		var language2 = $('#language2').val();
-		var fileToUpload = $('#fileToUpload').prop("files")[0]['name'];
 
-		// make the postdata
-		// var postData = '&ID='+ID+'&NAME='+NAME+'&PASSWORD='+PASSWORD+'&CREDITS'+CREDITS+'&EMAIL_ID'+EMAIL_ID+'&CREATED_ON'+CREATED_ON+'&MODIFIED_ON'+MODIFIED_ON;
-		// alert(postData);
-		var myData={"name":name,"surname":surname,"other":other,"title":title,"note":note,"category":category,"language1":language1,"language2":language2,"fileToUpload":fileToUpload};
+		var form = $('form')[0]; // You need to use standart javascript object here
+		var formData = new FormData(form);
+
+		var category = $('#category option:selected').val()
+		formData.append('category', category);
+		var language1 = $('#language1 option:selected').val()
+		formData.append('language1', language1);
+		var language2 = $('#language2 option:selected').val()
+		formData.append('language2', language2);
+
 		//call your .php script in the background,
 		//when it returns it will call the success function if the request was successful or
 		//the error one if there was an issue (like a 404, 500 or any other error status)
 		$.ajax({
 	    url : "ajaxinsert.php",
 	    type: "POST",
-	    data : myData,
+	    data : formData,
+			contentType: false,
+			processData: false,
 	    success: function(data)
 	    {
 	      //if success then1 just output the text to the status div then clear the form inputs to prepare for new data

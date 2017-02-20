@@ -21,8 +21,7 @@
     $categoryID = htmlspecialchars($_POST['category']);
     $language1ID = htmlspecialchars($_POST['language1']);
     $language2ID = htmlspecialchars($_POST['language2']);
-    $image = htmlspecialchars($_POST['fileToUpload']);
-    $file=($_FILES['fileToUpload']['name']);
+		$image=($_FILES['fileToUpload']['name']);
   }
 
   // Check if image file is a actual image or fake image
