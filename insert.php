@@ -21,7 +21,64 @@
 <head>
 	<title>BKMNGR</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" >
+	<script src="js/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<!-- Insert item -->
+	<script>
+	// Browser Support Code
+	function ajaxFunction(){
+		var ajaxRequest;  // The variable that makes Ajax possible!
+
+		try{
+   	// Opera 8.0+, Firefox, Safari
+  	ajaxRequest = new XMLHttpRequest();
+		}catch (e){
+  		// Internet Explorer Browsers
+  		try{
+      ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+  		}catch (e) {
+      	try{
+        	ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      	}catch (e){
+        	// Something went wrong
+        	alert("Your browser broke!");
+        	return false;
+      	}
+   		}
+		}
+	}
+	//on the click of the submit button
+	$(document).on('click','#btn_submit',function(){
+	  //get the form values
+		var name = $('#name').val();
+		var surname = $('#surname').val();
+		var other = $('#other').val();
+		var title = $('#title').val();
+		var note = $('#note').val();
+		var category = $('#category').val();
+		var language1 = $('#language1').val();
+		var language2 = $('#language2').val();
+		var fileToUpload = $('#fileToUpload').prop("files")[0]['name'];
+
+		// make the postdata
+		// var postData = '&ID='+ID+'&NAME='+NAME+'&PASSWORD='+PASSWORD+'&CREDITS'+CREDITS+'&EMAIL_ID'+EMAIL_ID+'&CREATED_ON'+CREATED_ON+'&MODIFIED_ON'+MODIFIED_ON;
+		// alert(postData);
+		var myData={"name":name,"surname":surname,"other":other,"title":title,"note":note,"category":category,"language1":language1,"language2":language2,"fileToUpload":fileToUpload};
+		//call your .php script in the background,
+		//when it returns it will call the success function if the request was successful or
+		//the error one if there was an issue (like a 404, 500 or any other error status)
+		$.ajax({
+	    url : "ajaxinsert.php",
+	    type: "POST",
+	    data : myData,
+	    success: function(data)
+	    {
+	      //if success then1 just output the text to the status div then clear the form inputs to prepare for new data
+	      $("#status_text").html("<p>OK</p>");
+	    }
+		});
+	});
+	</script>
 </head>
 <body>
 	<?php
@@ -31,34 +88,39 @@
 	  <div class="row">
 	    <div class="col-sm-12">
 	      <h1>INSERT NEW ITEMS</h1>
+
+				<div id="status_text">
+				</div>
+
+
 	<!--      	<form method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">   -->
-	      <form class="form"  method="post" enctype="multipart/form-data" action="input.php" >
+	      <form class="form" action="" method="post" enctype="multipart/form-data">
 	        <h2>NEW ITEM</h2>
 					<div class="form-group">
 						<div class="row">
 						  <div class="col-sm-6">
 			          <label for="name">Name:</label>
-			          <input type="text" class="form-control" name="name">
+			          <input type="text" id="name" class="form-control" name="name">
 			        </div>
 							<div class="col-sm-6">
 			          <label for="surname">Surname:</label>
-			          <input type="text" class="form-control" name="surname">
+			          <input type="text" id="surname" class="form-control" name="surname">
 			        </div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Title:</label>
-	          <input type="text" class="form-control" name="title">
+	          <input type="text" id="title" class="form-control" name="title">
 	        </div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6">
 			          <label for="note">Note:</label>
-			          <input type="text" class="form-control" name="note">
+			          <input type="text" id="note" class="form-control" name="note">
 			        </div>
 							<div class="col-sm-6">
 								<label for="other">Other:</label>
-								<input type="text" class="form-control" name="other">
+								<input type="text" id="other" class="form-control" name="other">
 							</div>
 						</div>
 					</div>
@@ -76,7 +138,7 @@
 							?>
 							<div class="col-sm-4">
 			        	<label for="dropdown">Category:</label>
-			          <select name="categoryID">
+			          <select id="category" name="categoryID">
 									<?php
 								    while ($row = $result->fetch_assoc()) {
 							        echo "<option value=\"{$row['id']}\">";
@@ -92,7 +154,7 @@
 							?>
 				      <div class="col-sm-4">
 								<label for="dropdown">Language1:</label>
-				        <select name="language1ID">
+				        <select id="language1" name="language1ID">
 									<?php
 								    while ($row2 = $result2->fetch_assoc()) {
 							        echo "<option value=\"{$row2['id']}\">";
@@ -104,7 +166,7 @@
 							</div>
 							<div class="col-sm-4">
 								<label for="dropdown">Language2:</label>
-				        <select name="language2ID">
+				        <select id="language2" name="language2ID">
 									<?php
 										mysqli_data_seek($result2,0);
 								    while ($row2 = $result2->fetch_assoc()) {
@@ -120,7 +182,7 @@
 							?>
 						</div>
 					</div>
-	        <button type="submit" class="btn btn-default">Submit new item</button>
+	        <button type="submit" id="btn_submit" class="btn btn-default">Submit new item</button>
 	 	    </form>
 				<hr>
 	      <form  method="post" action="cat_input.php">

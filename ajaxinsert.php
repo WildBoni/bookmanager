@@ -1,41 +1,40 @@
 <?php
+  session_start();
+  include_once 'dbconnect.php';
 
-	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES["fileToUpload2"]["name"]);
+  if (!isset($_SESSION['userSession'])) {
+    header("Location: index.php");
+  }
+
+  $target_dir = "uploads/";
+	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-  include_once 'dbconnect.php';
-
-  $ud_ID = (int)$_POST["ID"];
   $name = $title = $surname = $other = $note = $categoryID = $language1ID = $language2ID = $image = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
-    $title = htmlspecialchars($_POST['title']);
     $surname = htmlspecialchars($_POST['surname']);
     $other = htmlspecialchars($_POST['other']);
     $note = htmlspecialchars($_POST['note']);
-    $categoryID = htmlspecialchars($_POST['categoryID']);
-    $language1ID = htmlspecialchars($_POST['language1ID']);
-    $language2ID = htmlspecialchars($_POST['language2ID']);
-		$image=($_FILES['fileToUpload2']['name']);
+    $title = htmlspecialchars($_POST['title']);
+    $categoryID = htmlspecialchars($_POST['category']);
+    $language1ID = htmlspecialchars($_POST['language1']);
+    $language2ID = htmlspecialchars($_POST['language2']);
+    $image = htmlspecialchars($_POST['fileToUpload']);
+    $file=($_FILES['fileToUpload']['name']);
   }
 
-  $sql = "UPDATE item SET name = '$name', title = '$title', surname = '$surname',
-    other = '$other', note = '$note', category = '$categoryID',
-    language1 = '$language1ID', language2 = '$language2ID', image='$image'
-    WHERE id='$ud_ID'";
-
-	// Check if image file is a actual image or fake image
+  // Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload2"]["tmp_name"]);
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
       echo "File is an image - " . $check["mime"] . ".";
       $uploadOk = 1;
     } else {
       echo "File is not an image.";
       $uploadOk = 0;
-    }
+  	}
 	}
 	// Check if file already exists
 	if (file_exists($target_file)) {
@@ -43,7 +42,7 @@
     $uploadOk = 0;
 	}
 	// Check file size
-	if ($_FILES["fileToUpload2"]["size"] > 500000) {
+	if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 	}
@@ -58,17 +57,20 @@
     echo "Sorry, your file was not uploaded.";
 		// if everything is ok, try to upload file
 	} else {
-    if (move_uploaded_file($_FILES["fileToUpload2"]["tmp_name"], $target_file)) {
-      echo "The file ". basename( $_FILES["fileToUpload2"]["name"]). " has been uploaded.";
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
-      echo "Sorry, there was an error uploading your file.";
+        echo "Sorry, there was an error uploading your file.";
     }
 	}
 
+  $sql = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)
+  VALUES ('$name', '$surname', '$other', '$note', '$title', '$categoryID', '$language1ID', '$language2ID', '$image')";
+
   if ($con->query($sql) === TRUE) {
-    echo "<p>Record ($ud_ID) updated successfully</p><p><a href='view.php'>Back to Item View</a></p>";
+    echo "<p>New item created successfully</p>";
   } else {
-    echo "Error: ($ud_ID) Not Updated";
+    echo "Error: " . $sql . "<br>" . $con->error;
   }
 
   $con->close();
