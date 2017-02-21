@@ -58,7 +58,7 @@
           url: "ajaxupdate.php",
           data: info,
           success: function(){
-			$("#deleteimg").html("<p>Image deleted</p>");
+			      $("#deleteimg").html("<p>Image deleted</p>");
           }
         });
       }

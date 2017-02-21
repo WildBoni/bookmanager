@@ -64,6 +64,26 @@
       });
   }
   </script>
+  <!-- Remove image -->
+  <script>
+    $(document).on('click','.delImg',function(){
+
+      var element = $(this);
+      var del_id = element.attr('data-id');
+      var info = 'id=' + del_id;
+      if(confirm("Are you sure you want to delete this image?")) {
+        $.ajax({
+          type: "POST",
+          url: "ajaxupdate.php",
+          data: info,
+          success: function(){
+			      $("#deleteimg").html("<p>Image deleted</p>");
+          }
+        });
+      }
+      return false;
+    });
+  </script>
 </head>
 <body>
   <?php
@@ -119,11 +139,16 @@
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                   <td>
-                    <?php if (!empty($row["image"])) { ?>
-                      <img src="uploads/<?php echo $row["image"] ?>">
-                    <?php } else { ?>
-                      <!-- <img src="uploads/no_img.jpg"> -->
-                      <?php } ?>
+                    <div id="deleteimg">
+                      <?php if (!empty($row["image"])) { ?>
+                        <img src="uploads/<?php echo $row["image"] ?>">
+                      <?php } else { ?>
+                        <!-- <img src="uploads/no_img.jpg"> -->
+                        <?php } ?>
+                        <?php if (!empty($row["image"])) { ?>
+                        <a data-id="<?php echo $row['id'] ?>" class="delImg" href="#">Delete</a>
+                        <?php } ?>
+                      </div>
                     </td>
                 </tr>
               <?php
