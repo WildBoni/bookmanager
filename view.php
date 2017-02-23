@@ -54,14 +54,14 @@
 
   function saveToDatabase(editableObj,column,id) {
     $(editableObj).css("background","#FFF url(loaderIcon.gif) no-repeat right");
-      $.ajax({
-        url: "ajaxedit.php",
-        type: "POST",
-        data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
-        success: function(data){
-          $(editableObj).css("background","#E8E8E8");
-        }
-      });
+    $.ajax({
+      url: "ajaxedit.php",
+      type: "POST",
+      data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
+      success: function(data){
+        $(editableObj).css("background","#E8E8E8");
+      }
+    });
   }
   </script>
   <!-- Remove image -->
@@ -134,14 +134,14 @@
                   <td><?php echo $row["category"] ?></td>
                   <td><?php echo $row["language1"] ?></td>
                   <td><?php echo $row["language2"] ?></td>
-                  <td><?php echo $row["other"] ?></td>
-                  <td><?php echo $row["note"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'other','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["other"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'note','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                   <td>
                     <div id="deleteimg">
                       <?php if (!empty($row["image"])) { ?>
-                        <img src="uploads/<?php echo $row["image"] ?>">
+                        <img height="50" src="uploads/<?php echo $row["image"] ?>">
                       <?php } else { ?>
                         <!-- <img src="uploads/no_img.jpg"> -->
                         <?php } ?>
