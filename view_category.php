@@ -48,6 +48,24 @@
       return false;
     });
   </script>
+  <!-- Edit database value -->
+  <script>
+  function showEdit(editableObj) {
+    $(editableObj).css("background","#FFF");
+  }
+
+  function saveToDatabase(editableObj,column,id) {
+    $(editableObj).css("background","#FFF url(loaderIcon.gif) no-repeat right");
+    $.ajax({
+      url: "ajaxedit_category.php",
+      type: "POST",
+      data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
+      success: function(data){
+        $(editableObj).css("background","#E8E8E8");
+      }
+    });
+  }
+  </script>
 </head>
 <body>
   <?php
@@ -80,7 +98,7 @@
               ?>
                 <tr>
                   <td><?php echo $row["id"] ?></td>
-                  <td><?php echo $row["category"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'category','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["category"] ?></td>
                   <td><?php echo "<a href='edit_category.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                 </tr>
