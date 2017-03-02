@@ -47,10 +47,10 @@
    		}
 		}
 	}
-	//on the click of the submit button
+	//on the click of the submit button - INSERT ITEM
 	$(document).on('click','#btn_submit',function(){
 
-		var form = $('form')[0]; // You need to use standart javascript object here
+		var form = $('form')[0]; // You need to use standard javascript object here
 		var formData = new FormData(form);
 
 		var category = $('#category option:selected').val()
@@ -65,6 +65,50 @@
 		//the error one if there was an issue (like a 404, 500 or any other error status)
 		$.ajax({
 	    url : "ajaxinsert.php",
+	    type: "POST",
+	    data : formData,
+			contentType: false,
+			processData: false,
+	    success: function(data)
+	    {
+	      //if success then1 just output the text to the status div then clear the form inputs to prepare for new data
+	      $("#status_text").html("<p>OK</p>");
+	    }
+		});
+	});
+	//on the click of the submit button - INSERT CATEGORY
+	$(document).on('click','#btn_submit_category',function(){
+
+		var form = $('form')[1]; // You need to use standard javascript object here
+		var formData = new FormData(form);
+
+		//call your .php script in the background,
+		//when it returns it will call the success function if the request was successful or
+		//the error one if there was an issue (like a 404, 500 or any other error status)
+		$.ajax({
+	    url : "ajaxinsert_category.php",
+	    type: "POST",
+	    data : formData,
+			contentType: false,
+			processData: false,
+	    success: function(data)
+	    {
+	      //if success then1 just output the text to the status div then clear the form inputs to prepare for new data
+	      $("#status_text").html("<p>OK</p>");
+	    }
+		});
+	});
+	//on the click of the submit button - INSERT LANGUAGE
+	$(document).on('click','#btn_submit_language',function(){
+
+		var form = $('form')[2]; // You need to use standard javascript object here
+		var formData = new FormData(form);
+
+		//call your .php script in the background,
+		//when it returns it will call the success function if the request was successful or
+		//the error one if there was an issue (like a 404, 500 or any other error status)
+		$.ajax({
+	    url : "ajaxinsert_language.php",
 	    type: "POST",
 	    data : formData,
 			contentType: false,
@@ -183,28 +227,27 @@
 	        <button type="submit" id="btn_submit" class="btn btn-default">Submit new item</button>
 	 	    </form>
 				<hr>
-	      <form  method="post" action="cat_input.php">
+	      <form class="form" action="" method="post">
 	        <h2>NEW CATEGORY</h2>
 	        <div class="form-group">
 	          <label for="name">CAT:</label>
 	          <input type="text" class="form-control" name="cat">
 	        </div>
-	        <button type="submit" class="btn btn-default">Submit new category</button>
+	        <button type="submit" id="btn_submit_category" class="btn btn-default">Submit new category</button>
 	 	    </form>
 				<hr>
-				<form  method="post" action="lang_input.php">
+				<form class="form" action="" method="post">
 					<h2>NEW LANGUAGE</h2>
 					<div class="form-group">
 						<label for="name">LANGUAGE:</label>
 						<input type="text" class="form-control" name="lang">
 					</div>
-					<button type="submit" class="btn btn-default">Submit new language</button>
+	        <button type="submit" id="btn_submit_language" class="btn btn-default">Submit new language</button>
 				</form>
 	    </div>
 	  </div>
 	</div>
 
-<script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
 </body>
