@@ -34,6 +34,11 @@
       <h2><a href="insert.php">INSERT NEW ITEMS</a></h2>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-12">
+      <h2><a href="search.php">SEARCH ITEM</a></h2>
+      </div>
+    </div>
   </div>
   <script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.min.js"></script>

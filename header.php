@@ -23,6 +23,7 @@
           </ul>
         </li>
         <li><a href="insert.php">&nbsp; Insert</a></li>
+        <li><a href="search.php">&nbsp; Search</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; <?php echo $userRow['username']; ?></a></li>
