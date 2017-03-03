@@ -1,20 +1,20 @@
 <?php
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-$link = mysqli_connect("localhost", "boniadm", "overlord15", "books");
 
-// Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+session_start();
+include_once 'dbconnect.php';
+
+if (!isset($_SESSION['userSession'])) {
+  header("Location: index.php");
 }
-
 // Escape user inputs for security
-$term = mysqli_real_escape_string($link, $_REQUEST['term']);
+$term = mysqli_real_escape_string($con, $_REQUEST['term']);
 
 if(isset($term)){
     // Attempt select query execution
     $sql = "SELECT * FROM item WHERE name LIKE '%" . $term . "%' OR surname LIKE '%" . $term . "%' OR title LIKE '%" . $term . "%'";
-    if($result = mysqli_query($link, $sql)){
+    if($result = mysqli_query($con, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 echo "<p>" . $row['name'] . " - " . $row['surname'] . " - " . $row['title'] ."</p>";
@@ -25,10 +25,10 @@ if(isset($term)){
             echo "<p>No matches found</p>";
         }
     } else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
     }
 }
 
 // close connection
-mysqli_close($link);
+mysqli_close($con);
 ?>
