@@ -92,7 +92,7 @@ $(document).ready(function(){
     include 'header.php';
   ?>
   <div class="search-box">
-      <input type="text" autocomplete="off" placeholder="Search country..." />
+      <input type="text" autocomplete="off" placeholder="Search item..." />
       <div class="result"></div>
   </div>
   <script src="js/bootstrap.min.js"></script>
