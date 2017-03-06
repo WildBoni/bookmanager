@@ -25,10 +25,20 @@
         <li><a href="insert.php">&nbsp; Insert</a></li>
         <li><a href="search.php">&nbsp; Search</a></li>
       </ul>
+      <?php if (isset($_SESSION['userSession'])) { ?>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; <?php echo $userRow['username']; ?></a></li>
+        <li>
+          <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;
+            <?php echo $userRow['username']; ?>
+          </a>
+        </li>
         <li><a href="logout.php?logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
       </ul>
+      <?php } else { ?>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="index.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Login</a></li>
+        </ul>
+      <?php } ?>
     </div>
   </div>
 </nav>

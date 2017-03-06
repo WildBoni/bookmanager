@@ -39,11 +39,12 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 </head>
 
-<body>
+<body style="padding-top:10px;">
+  </div>
   <div class="signin-form">
-    <div class="container">
-      <form class="form-signin" method="post" id="login-form">
-        <h2 class="form-signin-heading">Sign In.</h2>
+    <div class="container" style="background-color:#e7e7e7;>
+      <form class="form-signin" method="post" id="login-form"">
+        <h2>Admin panel</h2>
         <hr />
         <?php
           if(isset($msg)){
@@ -67,6 +68,12 @@
       </form>
     </div>
   </div>
+  <div class="container" style="padding:20px 0 0px 0;">
+    <div class="text-center">
+      <h4><a href="search.php"style="background-color:#356b67; color:#FFF; padding: 10px 20px;">
+        <span class="glyphicon glyphicon-search" style="font-size16px;"></span> Free search</a>
+      </h4>
+    </div>
 </body>
 
 <script src="js/jquery-1.10.2.js"></script>

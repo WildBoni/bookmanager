@@ -2,13 +2,10 @@
   session_start();
   include_once 'dbconnect.php';
 
-  if (!isset($_SESSION['userSession'])) {
-    header("Location: index.php");
+  if (isset($_SESSION['userSession'])) {
+    $query = $con->query("SELECT * FROM users WHERE id=".$_SESSION['userSession']);
+    $userRow=$query->fetch_array();
   }
-
-  $query = $con->query("SELECT * FROM users WHERE id=".$_SESSION['userSession']);
-  $userRow=$query->fetch_array();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +20,6 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" >
 
 <style type="text/css">
-    body{
-        font-family: Arail, sans-serif;
-    }
     /* Formatting search box */
     .search-box{
         width: 300px;
@@ -41,22 +35,13 @@
         font-size: 14px;
     }
     .result{
-        position: absolute;
-        z-index: 999;
-        top: 100%;
-        left: 0;
     }
-    .search-box input[type="text"], .result{
-        width: 100%;
-        box-sizing: border-box;
-    }
+
     /* Formatting result items */
     .result p{
         margin: 0;
         padding: 7px 10px;
         border: 1px solid #CCCCCC;
-        border-top: none;
-        cursor: pointer;
     }
     .result p:hover{
         background: #f2f2f2;
@@ -68,7 +53,7 @@ $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
         /* Get input value on change */
         var inputVal = $(this).val();
-        var resultDropdown = $(this).siblings(".result");
+        var resultDropdown = $(".result");
         if(inputVal.length){
             $.get("livesearch.php", {term: inputVal}).done(function(data){
                 // Display the returned data in browser
@@ -93,8 +78,8 @@ $(document).ready(function(){
   ?>
   <div class="search-box">
       <input type="text" autocomplete="off" placeholder="Search item..." />
-      <div class="result"></div>
   </div>
+  <div class="result"></div>
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
