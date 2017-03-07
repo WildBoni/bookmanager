@@ -16,7 +16,7 @@ if(isset($term)){
     $sql = "SELECT * FROM item WHERE name LIKE '%" . $term . "%' OR surname LIKE '%" . $term . "%' OR title LIKE '%" . $term . "%'";
     if($result = mysqli_query($con, $sql)){
         if(mysqli_num_rows($result) > 0){
-          echo("Total results: <strong>".mysqli_num_rows($result)."</strong>");
+          echo("<div class='totale text-center'>Total results: <strong>".mysqli_num_rows($result)."</strong></div><div class='result'>");
             while($row = mysqli_fetch_array($result)){
                 echo "<p>" . $row['name'] . " | <strong>" . $row['surname'] . "</strong> | " . $row['title'] . "";
                 if(isset($_SESSION['userSession'])!="") {
@@ -26,6 +26,7 @@ if(isset($term)){
             }
             // Close result set
             mysqli_free_result($result);
+          echo("</div>");
         } else{
             echo "<p>No matches found</p>";
         }

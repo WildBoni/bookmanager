@@ -65,21 +65,32 @@ $(document).ready(function(){
     });
 
     // Set search input value on click of result item
-    $(document).on("click", ".result p", function(){
-        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-        $(this).parent(".result").empty();
-    });
+    // $(document).on("click", ".result p", function(){
+    //     $(".search-box").find('input[type="text"]').val($(this).text());
+    //     $(".result").empty();
+    // });
 });
 </script>
 </head>
 <body>
-  <?php
-    include 'header.php';
-  ?>
-  <div class="search-box">
-      <input type="text" autocomplete="off" placeholder="Search item..." />
+  <div class="container-fluid"">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <?php
+          include 'header.php';
+        ?>
+        <div class="search-box">
+            <input type="text" autocomplete="off" placeholder="Search item..." />
+        </div>
+      </div>
+    </div>
+    <div class="row result">
+      <div class="col-sm-12 text-center">
+      </div>
+      <div class="col-sm-12 text-center">
+      </div>
+    </div>
   </div>
-  <div class="result"></div>
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
