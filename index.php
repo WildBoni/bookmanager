@@ -42,8 +42,8 @@
 <body style="padding-top:10px;">
   </div>
   <div class="signin-form">
-    <div class="container" style="background-color:#e7e7e7;>
-      <form class="form-signin" method="post" id="login-form"">
+    <div class="container" style="background-color:#e7e7e7;">
+      <form class="form-signin" method="post" id="login-form">
         <h2>Admin panel</h2>
         <hr />
         <?php
