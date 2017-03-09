@@ -25,18 +25,24 @@
   ?>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-12">
-      	<h2><a href="view.php">VIEW ITEMS</a></h2>
+      <div class="col-sm-12" style="padding: 0 15px;">
+          <h4><a href="view.php"style="background-color:#8d8a51; color:#FFF; padding: 10px 20px; display: block; width:198px;">
+            <span class="glyphicon glyphicon-list" style="font-size16px;"></span> View items</a>
+          </h4>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
-      <h2><a href="insert.php">INSERT NEW ITEMS</a></h2>
+      <div class="col-sm-12" style="padding: 0 15px;">
+          <h4><a href="insert.php"style="background-color:#893939; color:#FFF; padding: 10px 20px; display: block; width:198px;">
+            <span class="glyphicon glyphicon-plus" style="font-size16px;"></span> Insert new items</a>
+          </h4>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
-      <h2><a href="search.php">SEARCH ITEM</a></h2>
+      <div class="col-sm-12" style="padding: 0 15px;">
+          <h4><a href="search.php"style="background-color:#356b67; color:#FFF; padding: 10px 20px; display: block; width:198px;">
+            <span class="glyphicon glyphicon-search" style="font-size16px;"></span> Free search</a>
+          </h4>
       </div>
     </div>
   </div>

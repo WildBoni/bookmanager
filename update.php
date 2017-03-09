@@ -66,7 +66,7 @@
 	}
 
   if ($con->query($sql) === TRUE) {
-    echo "<p>Record ($ud_ID) updated successfully</p><p><a href='view.php'>Back to Item View</a></p>";
+    echo "<p>Record ($ud_ID) updated successfully</p><p><a href='javascript:history.go(-2);'>Back to Item View</a></p>";
   } else {
     echo "Error: ($ud_ID) Not Updated";
   }

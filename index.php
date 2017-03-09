@@ -74,6 +74,7 @@
         <span class="glyphicon glyphicon-search" style="font-size16px;"></span> Free search</a>
       </h4>
     </div>
+  </div>
 </body>
 
 <script src="js/jquery-1.10.2.js"></script>

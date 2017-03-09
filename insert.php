@@ -192,7 +192,7 @@
 							</div>
 							<?php
 								}
-								if ($result !== FALSE) {
+								if ($result2 !== FALSE) {
 							?>
 				      <div class="col-sm-4">
 								<label for="dropdown">Language1:</label>

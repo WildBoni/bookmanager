@@ -73,7 +73,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-  <div class="container-fluid"">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 text-center">
         <?php
