@@ -102,6 +102,7 @@
           <div class="form-group">
 	        	<label for="dropdown">Category:</label>
 	          <select name="categoryID">
+              <option value="0">NOT selected</option>
 							<?php
 						    while ($row2 = $result2->fetch_assoc()) {
                   if ($row2['id'] == trim($category)) {
@@ -117,6 +118,7 @@
           <div class="form-group">
             <label for="dropdown">Language1:</label>
             <select name="language1ID">
+              <option value="0">NOT selected</option>
               <?php
                 while ($row3 = $result3->fetch_assoc()) {
                   if ($row3['id'] == trim($language1)) {
@@ -132,6 +134,7 @@
           <div class="form-group">
             <label for="dropdown">Language2:</label>
             <select name="language2ID">
+              <option value="0">NOT selected</option>
               <?php
                 mysqli_data_seek($result3,0);
                 while ($row3 = $result3->fetch_assoc()) {

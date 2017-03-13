@@ -181,6 +181,7 @@
 							<div class="col-sm-4">
 			        	<label for="dropdown">Category:</label>
 			          <select id="category" name="categoryID">
+									<option value="0">NOT selected</option>
 									<?php
 								    while ($row = $result->fetch_assoc()) {
 							        echo "<option value=\"{$row['id']}\">";
@@ -197,6 +198,7 @@
 				      <div class="col-sm-4">
 								<label for="dropdown">Language1:</label>
 				        <select id="language1" name="language1ID">
+									<option value="0">NOT selected</option>
 									<?php
 								    while ($row2 = $result2->fetch_assoc()) {
 							        echo "<option value=\"{$row2['id']}\">";
@@ -209,6 +211,7 @@
 							<div class="col-sm-4">
 								<label for="dropdown">Language2:</label>
 				        <select id="language2" name="language2ID">
+									<option value="0">NOT selected</option>
 									<?php
 										mysqli_data_seek($result2,0);
 								    while ($row2 = $result2->fetch_assoc()) {
