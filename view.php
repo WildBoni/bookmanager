@@ -8,7 +8,7 @@
 
   $query = $con->query("SELECT * FROM users WHERE id=".$_SESSION['userSession']);
   $userRow=$query->fetch_array();
-
+  $currentItem = 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,11 +93,8 @@
 	  <div class="row">
 	    <div class="col-sm-12">
         <?php
-          $sql = "SELECT item.name, L1.language AS language1, L2.language AS language2,
-            item.id, item.title, item.surname, item.other, item.note, item.image, category.category
+          $sql = "SELECT item.name, item.id, item.title, item.surname, item.other, item.note, item.image, category.category
             FROM item LEFT JOIN category ON item.category=category.id
-            LEFT JOIN language L1 ON (L1.Id = item.language1)
-            LEFT JOIN language L2 ON (L2.Id = item.language2)
             ORDER BY surname ASC, title ASC";
           $result = $con->query($sql);
 
@@ -125,6 +122,7 @@
               <?php
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
+                  $currentItem = $row["id"];
               ?>
                 <tr>
                   <td><?php echo $row["id"] ?></td>
@@ -132,8 +130,25 @@
                   <td contenteditable="true" onBlur="saveToDatabase(this,'name','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["name"] ?></td>
                   <td contenteditable="true" onBlur="saveToDatabase(this,'title','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["title"] ?></td>
                   <td><?php echo $row["category"] ?></td>
-                  <td><?php echo $row["language1"] ?></td>
-                  <td><?php echo $row["language2"] ?></td>
+
+                    <?php
+                      $sql2 =  "SELECT language.id AS langId, language.language
+                      FROM item
+                      LEFT JOIN item_language ON item.id = item_language.Item_Id
+                      LEFT JOIN language ON item_language.Language_Id = language.id
+                      WHERE item.id = $currentItem";
+                      $result2 = $con->query($sql2);
+                      if ($result2->num_rows == 1) {
+                        $row2 = $result2->fetch_array();
+                          echo "<td>" . $row2['language'] . "</td><td></td>";
+                      } else if ($result2->num_rows == 2) {
+                        while($row2 = $result2->fetch_array()) {
+                          echo "<td>" . $row2['language'] . "</td>";
+                        }
+                      } else {
+                        echo ("<td></td><td></td>");
+                      } ?>
+
                   <td contenteditable="true" onBlur="saveToDatabase(this,'other','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["other"] ?></td>
                   <td contenteditable="true" onBlur="saveToDatabase(this,'note','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
