@@ -72,6 +72,28 @@
     echo "Error: " . $sql . "<br>" . $con->error;
   }
 
+	if($_POST["language1"] != "") {
+    $sql2 = "INSERT INTO item_language (Item_Id, Language_Id)
+    VALUES ((SELECT MAX(id) FROM item), '$language1ID')";
+
+    if ($con->query($sql2) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql2 . "<br>" . $con->error;
+    }
+  }
+
+  if($_POST["language2"] != "") {
+    $sql3 = "INSERT INTO item_language (Item_Id, Language_Id)
+    VALUES ((SELECT MAX(id) FROM item), '$language2ID')";
+
+    if ($con->query($sql3) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql3 . "<br>" . $con->error;
+    }
+  }
+
   $con->close();
 
 ?>
