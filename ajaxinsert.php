@@ -66,8 +66,8 @@
     }
 	}
 
-  $sql7 = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)
-  VALUES ('$name', '$surname', '$other', '$note', '$title', '$categoryID', '$language1ID', '$language2ID', '$image')";
+  $sql7 = "INSERT INTO item (other, note, title, category, language1, language2, image)
+  VALUES ('$other', '$note', '$title', '$categoryID', '$language1ID', '$language2ID', '$image')";
 
   if ($con->query($sql7) === TRUE) {
     echo "<p>New item created successfully</p>";
@@ -107,14 +107,14 @@
       echo "Error: " . $sql5 . "<br>" . $con->error;
     }
   } else {
-    // $sql4 = "INSERT INTO author (name, surname, other)
-    // VALUES ('$name', '$surname', "")";
-    //
-    // if ($con->query($sql4) === TRUE) {
-    //   echo "<p>New item created successfully</p>";
-    // } else {
-    //   echo "Error: " . $sql4 . "<br>" . $con->error;
-    // }
+    $sql4 = "INSERT INTO author (name, surname, other)
+    VALUES ('$name', '$surname', '')";
+
+    if ($con->query($sql4) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql4 . "<br>" . $con->error;
+    }
   }
 
   $con->close();

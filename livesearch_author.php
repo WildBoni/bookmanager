@@ -31,7 +31,7 @@ if(isset($term)){
             mysqli_free_result($result6);
           echo("</div>");
         } else{
-            echo '<div id="notFound" style="background-color:#e7e7e7;">
+            echo '<script>autoreID="";</script><div id="notFound" style="background-color:#e7e7e7;">
             				<div class="row">
             					<div class="col-sm-12">
             						NOT FOUND? Insert it!
