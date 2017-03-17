@@ -126,8 +126,21 @@
               ?>
                 <tr>
                   <td><?php echo $row["id"] ?></td>
-                  <td contenteditable="true" onBlur="saveToDatabase(this,'surname','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["surname"] ?></td>
-                  <td contenteditable="true" onBlur="saveToDatabase(this,'name','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["name"] ?></td>
+                  <?php
+                    $sql3 =  "SELECT author.id AS authId, author.surname AS authSurname, author.name AS authName
+                    FROM item
+                    LEFT JOIN item_author ON item.id = item_author.ItemId
+                    LEFT JOIN author ON item_author.AuthorID = author.id
+                    WHERE item.id = $currentItem";
+                    $result3 = $con->query($sql3);
+                    if ($result3->num_rows > 0) {
+                      $row3 = $result3->fetch_assoc();
+                      // TODO: ajax edit author table
+                        echo "<td contenteditable='true' onblur='saveToDatabase(this, \"surname\",\"". $row3['authId'] ."\")'>" . $row3['authSurname'] . "</td>";
+                        echo "<td contenteditable='true' onblur='saveToDatabase(this, \"name\",\"". $row3['authId'] ."\")'>" . $row3['authName'] . "</td>";
+                    } else {
+                      echo ("<td></td><td></td>");
+                    } ?>
                   <td contenteditable="true" onBlur="saveToDatabase(this,'title','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["title"] ?></td>
                   <td><?php echo $row["category"] ?></td>
 

@@ -15,6 +15,7 @@
 	$sql2 = "SELECT id, language FROM language";
 	$result2 = $con->query($sql2);
 
+	$notFound = 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,41 +26,63 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 	<!-- Insert item -->
 	<script>
-	// Browser Support Code
 	function ajaxFunction(){
 		var ajaxRequest;  // The variable that makes Ajax possible!
 
 		try{
-   	// Opera 8.0+, Firefox, Safari
-  	ajaxRequest = new XMLHttpRequest();
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
 		}catch (e){
-  		// Internet Explorer Browsers
-  		try{
-      ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-  		}catch (e) {
-      	try{
-        	ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-      	}catch (e){
-        	// Something went wrong
-        	alert("Your browser broke!");
-        	return false;
-      	}
-   		}
+			// Internet Explorer Browsers
+			try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			}catch (e) {
+				try{
+					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+				}catch (e){
+					// Something went wrong
+					alert("Your browser broke!");
+					return false;
+				}
+			}
 		}
 	}
+
+	$(document).ready(function(){
+	    $('.search-box input[type="text"]').on("keyup input", function(){
+	        /* Get input value on change */
+	        var inputVal = $(this).val();
+	        var resultDropdown = $(".result");
+	        if(inputVal.length){
+	            $.get("livesearch_author.php", {term: inputVal}).done(function(data){
+	                // Display the returned data in browser
+	                resultDropdown.html(data);
+	            });
+	        } else{
+	            resultDropdown.empty();
+	        }
+	    });
+	});
+
+	var autoreID = "";
+
+
+	$(document).on('click','.checkName',function(){
+		autoreID = $(this).val();
+		console.log(autoreID);
+	});
+
 	//on the click of the submit button - INSERT ITEM
 	$(document).on('click','#btn_submit',function(){
-
 		var form = $('form')[0]; // You need to use standard javascript object here
 		var formData = new FormData(form);
-
 		var category = $('#category option:selected').val()
 		formData.append('category', category);
 		var language1 = $('#language1 option:selected').val()
 		formData.append('language1', language1);
 		var language2 = $('#language2 option:selected').val()
 		formData.append('language2', language2);
-
+		formData.append('autoreID', autoreID);
 		//call your .php script in the background,
 		//when it returns it will call the success function if the request was successful or
 		//the error one if there was an issue (like a 404, 500 or any other error status)
@@ -140,16 +163,18 @@
 	        <h2>NEW ITEM</h2>
 					<div class="form-group">
 						<div class="row">
-						  <div class="col-sm-6">
-			          <label for="name">Name:</label>
-			          <input type="text" id="name" class="form-control" name="name">
-			        </div>
-							<div class="col-sm-6">
-			          <label for="surname">Surname:</label>
-			          <input type="text" id="surname" class="form-control" name="surname">
-			        </div>
+								<div class="search-box">
+				            <input type="text" autocomplete="off" placeholder="Search item..." />
+				        </div>
 						</div>
+						<div class="row result">
+				      <div class="col-sm-12 text-center">
+				      </div>
+				      <div class="col-sm-12 text-center">
+				      </div>
+				    </div>
 					</div>
+
 					<div class="form-group">
 						<label for="title">Title:</label>
 	          <input type="text" id="title" class="form-control" name="title">

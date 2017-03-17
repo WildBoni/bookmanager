@@ -11,7 +11,7 @@
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-  $name = $title = $surname = $other = $note = $categoryID = $language1ID = $language2ID = $image = "";
+  $name = $title = $surname = $other = $note = $categoryID = $language1ID = $language2ID = $image = $autoreID = "";
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
     $surname = htmlspecialchars($_POST['surname']);
@@ -22,7 +22,10 @@
     $language1ID = htmlspecialchars($_POST['language1']);
     $language2ID = htmlspecialchars($_POST['language2']);
 		$image=($_FILES['fileToUpload']['name']);
+    $autoreID = htmlspecialchars($_POST['autoreID']);
   }
+
+  echo "<script type='text/javascript'>alert('$autoreID');</script>";
 
   // Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
@@ -63,23 +66,23 @@
     }
 	}
 
-  $sql = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)
+  $sql7 = "INSERT INTO item (name, surname, other, note, title, category, language1, language2, image)
   VALUES ('$name', '$surname', '$other', '$note', '$title', '$categoryID', '$language1ID', '$language2ID', '$image')";
 
-  if ($con->query($sql) === TRUE) {
+  if ($con->query($sql7) === TRUE) {
     echo "<p>New item created successfully</p>";
   } else {
-    echo "Error: " . $sql . "<br>" . $con->error;
+    echo "Error: " . $sql7 . "<br>" . $con->error;
   }
 
 	if($_POST["language1"] != "") {
-    $sql2 = "INSERT INTO item_language (Item_Id, Language_Id)
+    $sql8 = "INSERT INTO item_language (Item_Id, Language_Id)
     VALUES ((SELECT MAX(id) FROM item), '$language1ID')";
 
-    if ($con->query($sql2) === TRUE) {
+    if ($con->query($sql8) === TRUE) {
       echo "<p>New item created successfully</p>";
     } else {
-      echo "Error: " . $sql2 . "<br>" . $con->error;
+      echo "Error: " . $sql8 . "<br>" . $con->error;
     }
   }
 
@@ -92,6 +95,26 @@
     } else {
       echo "Error: " . $sql3 . "<br>" . $con->error;
     }
+  }
+
+  if($_POST["autoreID"] != "") {
+    $sql5 = "INSERT INTO item_author (ItemId, AuthorId)
+    VALUES ((SELECT MAX(id) FROM item), '$autoreID')";
+
+    if ($con->query($sql5) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql5 . "<br>" . $con->error;
+    }
+  } else {
+    // $sql4 = "INSERT INTO author (name, surname, other)
+    // VALUES ('$name', '$surname', "")";
+    //
+    // if ($con->query($sql4) === TRUE) {
+    //   echo "<p>New item created successfully</p>";
+    // } else {
+    //   echo "Error: " . $sql4 . "<br>" . $con->error;
+    // }
   }
 
   $con->close();
