@@ -27,25 +27,40 @@ if(isset($term)){
             }
           echo("</ul>
           </fieldset>");
+          echo '<script>autoreID="";</script><div id="notFound" style="background-color:#e7e7e7; padding: 20px;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <h2>NOT FOUND? Insert it!</h2>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="name">Name:</label>
+                      <input type="text" id="name" class="form-control" name="name">
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="surname">Surname:</label>
+                      <input type="text" id="surname" class="form-control" name="surname">
+                    </div>
+                  </div>
+                </div>';
             // Close result set
             mysqli_free_result($result6);
           echo("</div>");
         } else{
-            echo '<script>autoreID="";</script><div id="notFound" style="background-color:#e7e7e7;">
-            				<div class="row">
-            					<div class="col-sm-12">
-            						NOT FOUND? Insert it!
-            					</div>
-            					<div class="col-sm-6">
-            			      <label for="name">Name:</label>
-            			      <input type="text" id="name" class="form-control" name="name">
-            			    </div>
-            					<div class="col-sm-6">
-            			      <label for="surname">Surname:</label>
-            			      <input type="text" id="surname" class="form-control" name="surname">
-            			    </div>
-            				</div>
-            			</div>';
+          echo '<script>autoreID="";</script><div id="notFound" style="background-color:#e7e7e7; padding: 20px;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <h2>NOT FOUND? Insert it!</h2>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="name">Name:</label>
+                      <input type="text" id="name" class="form-control" name="name">
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="surname">Surname:</label>
+                      <input type="text" id="surname" class="form-control" name="surname">
+                    </div>
+                  </div>
+                </div>';
         }
     } else{
         echo "ERROR: Could not able to execute $sql6. " . mysqli_error($con);
