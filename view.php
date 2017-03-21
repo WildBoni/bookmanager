@@ -52,12 +52,12 @@
     $(editableObj).css("background","#FFF");
   }
 
-  function saveToDatabase(editableObj,column,id) {
+  function saveToDatabase(table,editableObj,column,id) {
     $(editableObj).css("background","#FFF url(loaderIcon.gif) no-repeat right");
     $.ajax({
       url: "ajaxedit.php",
       type: "POST",
-      data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
+      data:'table='+table+'&column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
       success: function(data){
         $(editableObj).css("background","#E8E8E8");
       }
@@ -136,12 +136,12 @@
                     if ($result3->num_rows > 0) {
                       $row3 = $result3->fetch_assoc();
                       // TODO: ajax edit author table
-                        echo "<td contenteditable='true' onblur='saveToDatabase(this, \"surname\",\"". $row3['authId'] ."\")'>" . $row3['authSurname'] . "</td>";
-                        echo "<td contenteditable='true' onblur='saveToDatabase(this, \"name\",\"". $row3['authId'] ."\")'>" . $row3['authName'] . "</td>";
+                        echo "<td contenteditable='true' onBlur='saveToDatabase(\"author\", this, \"surname\",\"". $row3['authId'] ."\")'>" . $row3['authSurname'] . "</td>";
+                        echo "<td contenteditable='true' onBlur='saveToDatabase(\"author\", this, \"name\",\"". $row3['authId'] ."\")'>" . $row3['authName'] . "</td>";
                     } else {
                       echo ("<td></td><td></td>");
                     } ?>
-                  <td contenteditable="true" onBlur="saveToDatabase(this,'title','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["title"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase('item',this,'title','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["title"] ?></td>
                   <td><?php echo $row["category"] ?></td>
 
                     <?php
@@ -162,8 +162,8 @@
                         echo ("<td></td><td></td>");
                       } ?>
 
-                  <td contenteditable="true" onBlur="saveToDatabase(this,'other','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["other"] ?></td>
-                  <td contenteditable="true" onBlur="saveToDatabase(this,'note','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["note"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase('item',this,'other','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["other"] ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase('item',this,'note','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["note"] ?></td>
                   <td><?php echo "<a href='edit.php?id=".$row['id']."'>Edit</a>" ?></td>
                   <td><a data-id="<?php echo $row['id'] ?>" class="delete" href="#">Delete</a></td>
                   <td>
