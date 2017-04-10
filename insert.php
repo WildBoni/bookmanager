@@ -99,6 +99,28 @@
 	    }
 		});
 	});
+	// Insert AUTHOR button
+	$(document).on('click','#btn_submit_author',function(){
+
+		var form = $('form')[0]; // You need to use standard javascript object here
+		var formData = new FormData(form);
+
+		//call your .php script in the background,
+		//when it returns it will call the success function if the request was successful or
+		//the error one if there was an issue (like a 404, 500 or any other error status)
+		$.ajax({
+	    url : "ajaxinsert_author.php",
+	    type: "POST",
+	    data : formData,
+			contentType: false,
+			processData: false,
+	    success: function(data)
+	    {
+	      //if success then1 just output the text to the status div then clear the form inputs to prepare for new data
+	      $("#status_text").html("<p>OK</p>");
+	    }
+		});
+	});
 	//on the click of the submit button - INSERT CATEGORY
 	$(document).on('click','#btn_submit_category',function(){
 
@@ -163,9 +185,12 @@
 	        <h2>NEW ITEM</h2>
 					<div class="form-group">
 						<div class="row">
+							<div class="col-sm-12">
+								<label>Author:</label>
 								<div class="search-box">
-				            <input type="text" autocomplete="off" placeholder="Search item..." />
-				        </div>
+					        <input type="text" autocomplete="off" placeholder="Search author..." />
+					      </div>
+							</div>
 						</div>
 						<div class="row result">
 				      <div class="col-sm-12 text-center">
