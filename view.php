@@ -93,9 +93,9 @@
 	  <div class="row">
 	    <div class="col-sm-12">
         <?php
-          $sql = "SELECT item.name, item.id, item.title, item.surname, item.other, item.note, item.image, category.category
+          $sql = "SELECT item.id, item.title, item.other, item.note, item.image, category.category
             FROM item LEFT JOIN category ON item.category=category.id
-            ORDER BY surname ASC, title ASC";
+            ORDER BY title ASC";
           $result = $con->query($sql);
 
           if ($result->num_rows > 0) {
@@ -111,7 +111,7 @@
                 <th>Category</th>
                 <th>Language1</th>
                 <th>Language2</th>
-                <th>Other authors</th>
+                <th>Other notes</th>
                 <th>Note</th>
                 <th>Edit</th>
                 <th>Delete</th>

@@ -66,8 +66,8 @@
     }
 	}
 
-  $sql7 = "INSERT INTO item (other, note, title, category, language1, language2, image)
-  VALUES ('$other', '$note', '$title', '$categoryID', '$language1ID', '$language2ID', '$image')";
+  $sql7 = "INSERT INTO item (other, note, title, category, image)
+  VALUES ('$other', '$note', '$title', '$categoryID', '$image')";
 
   if ($con->query($sql7) === TRUE) {
     echo "<p>New item created successfully</p>";
@@ -114,6 +114,15 @@
       echo "<p>New item created successfully</p>";
     } else {
       echo "Error: " . $sql4 . "<br>" . $con->error;
+    }
+
+    $sql9 = "INSERT INTO item_author (ItemId, AuthorId)
+    VALUES ((SELECT MAX(id) FROM item), (SELECT MAX(id) FROM author))";
+
+    if ($con->query($sql9) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql9 . "<br>" . $con->error;
     }
   }
 
