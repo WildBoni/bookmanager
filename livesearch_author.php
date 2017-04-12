@@ -21,7 +21,7 @@ if(isset($term)){
             <legend>Author:</legend>
             <ul style='list-style-type:none; overflow-y:scroll; height:150px;'>");
             while($row6 = mysqli_fetch_array($result6)){
-              echo "<li><input type='radio' name='checkAttivo[]' class='checkName' id='checkAttivo' value=\"{$row6['id']}\"/>";
+              echo "<li><input type='checkbox' name='checkAttivo[]' class='checkName' id='checkAttivo' value=\"{$row6['id']}\"/>";
               echo "<span>". $row6['surname'] ." | " .$row6['name'] ."</span>";
               echo "</li>";
             }
@@ -41,6 +41,11 @@ if(isset($term)){
                       <input type="text" id="surname" class="form-control" name="surname">
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button type="submit" id="btn_submit_author" class="btn btn-default">Submit new author</button>
+                    </div>
+                  </div>
                 </div>';
             // Close result set
             mysqli_free_result($result6);
@@ -58,6 +63,11 @@ if(isset($term)){
                     <div class="col-sm-6">
                       <label for="surname">Surname:</label>
                       <input type="text" id="surname" class="form-control" name="surname">
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <center><button type="submit" id="btn_submit_author" class="btn btn-default">Submit new author</button></center>
+                      </div>
                     </div>
                   </div>
                 </div>';

@@ -82,6 +82,12 @@
 		formData.append('language1', language1);
 		var language2 = $('#language2 option:selected').val()
 		formData.append('language2', language2);
+
+		var checkAttivo = new Array();
+		$("input[name='checkAttivo']:checked").each(function() {
+		   data['checkAttivo[]'].push($(this).val());
+		});
+
 		formData.append('autoreID', autoreID);
 		//call your .php script in the background,
 		//when it returns it will call the success function if the request was successful or
@@ -193,10 +199,7 @@
 							</div>
 						</div>
 						<div class="row result">
-				      <div class="col-sm-12 text-center">
-				      </div>
-				      <div class="col-sm-12 text-center">
-				      </div>
+
 				    </div>
 					</div>
 
