@@ -16,21 +16,44 @@
   $sql2 = "SELECT id, category FROM category";
 	$result2 = $con->query($sql2);
 
-  $sql3 = "SELECT id, language FROM language";
-	$result3 = $con->query($sql3);
-
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      $name = $row['name'];
       $title = $row['title'];
-      $surname = $row['surname'];
-      $other = $row['other'];
       $note = $row['note'];
       $category = $row['category'];
-      $language1 = $row['language1'];
-      $language2 = $row['language2'];
       $image = $row['image'];
+      $other= $row['other'];
+
+      $sql3 = "SELECT language.id AS langId, language.language
+      FROM item
+      LEFT JOIN item_language ON item.id = item_language.Item_Id
+      LEFT JOIN language ON item_language.Language_Id = language.id
+      WHERE item.id = $UID";
+      $languages = array();
+      $result3 = $con->query($sql3);
+      while($row3 = $result3->fetch_array()) {
+          $languages[] = $row3;
+      }
+
+      $language1 = $languages[0]['language'];
+      $language2 = $languages[1]['language'];
+
+      $sql4 =  "SELECT author.id AS authId, author.surname AS authSurname, author.name AS authName
+        FROM item
+        LEFT JOIN item_author ON item.id = item_author.ItemId
+        LEFT JOIN author ON item_author.AuthorID = author.id
+        WHERE item.id = $UID";
+      $result4 = $con->query($sql4);
+      if ($result4->num_rows > 0) {
+        $row4 = $result4->fetch_assoc();
+          $authID = $row4['authId'];
+          $name = $row4['authName'];
+          $surname = $row4['authSurname'];
+          echo "OK - ";
+      } else {
+        echo ("no!");
+      }
       echo "Ready to edit";
     }
   }else {
@@ -76,10 +99,11 @@
       <div class="col-sm-12">
         <form class="form" action="update.php" enctype="multipart/form-data"  method="post">
           <input type="hidden" name="ID" value="<?=$UID;?>">
+          <input type="hidden" name="authID" value="<?=$authID;?>">
           Name: <input type="text" name="name" value="<?=$name?>"><br>
           Surname: <input type="text" name="surname" value="<?=$surname?>"><br>
           Title: <input type="text" name="title" value="<?=$title?>"><br>
-          Other authors: <input type="text" name="other" value="<?=$other?>"><br>
+          Other: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
           <div id="deleteimg">
             <?php if (!empty($image)) { ?>
@@ -120,12 +144,14 @@
             <select name="language1ID">
               <option value="0">NOT selected</option>
               <?php
-                while ($row3 = $result3->fetch_assoc()) {
-                  if ($row3['id'] == trim($language1)) {
-                    echo "<option value='" . $row3['id'] . "' selected>" . $row3['language'] . "</option>";
+                $sql5 ="SELECT * FROM language ";
+                $result5 = $con->query($sql5);
+                while ($row5 = $result5->fetch_assoc()) {
+                  if ($row5['language'] == $language1) {
+                    echo "<option value='" . $row5['id'] . "' selected>" . $row5['language'] . "</option>";
                   }
                   else {
-                    echo "<option value='" . $row3['id'] . "'>" . $row3['language'] . "</option>";
+                    echo "<option value='" . $row5['id'] . "'>" . $row5['language'] . "</option>";
                   }
                 }
               ?>
@@ -136,13 +162,13 @@
             <select name="language2ID">
               <option value="0">NOT selected</option>
               <?php
-                mysqli_data_seek($result3,0);
-                while ($row3 = $result3->fetch_assoc()) {
-                  if ($row3['id'] == trim($language2)) {
-                    echo "<option value='" . $row3['id'] . "' selected>" . $row3['language'] . "</option>";
+                mysqli_data_seek($result5,0);
+                while ($row5 = $result5->fetch_assoc()) {
+                  if ($row5['language'] == $language2) {
+                    echo "<option value='" . $row5['id'] . "' selected>" . $row5['language'] . "</option>";
                   }
                   else {
-                    echo "<option value='" . $row3['id'] . "'>" . $row3['language'] . "</option>";
+                    echo "<option value='" . $row5['id'] . "'>" . $row5['language'] . "</option>";
                   }
                 }
               ?>
