@@ -21,6 +21,7 @@
     $language1ID = htmlspecialchars($_POST['language1ID']);
     $language2ID = htmlspecialchars($_POST['language2ID']);
 		$image=($_FILES['fileToUpload2']['name']);
+		$checkAttivo = $_POST['checkAttivo'];
   }
 
   $sql = "UPDATE item SET title = '$title', other = '$other', note = '$note', category = '$categoryID', image='$image'
@@ -79,6 +80,39 @@
       echo "Sorry, there was an error uploading your file.";
     }
 	}
+
+	if($checkAttivo == "") {
+    $sql4 = "INSERT INTO author (name, surname, other)
+    VALUES ('$name', '$surname', '')";
+
+    if ($con->query($sql4) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql4 . "<br>" . $con->error;
+    }
+
+    $sql9 = "INSERT INTO item_author (ItemId, AuthorId)
+    VALUES ((SELECT MAX(id) FROM item), (SELECT MAX(id) FROM author))";
+
+    if ($con->query($sql9) === TRUE) {
+      echo "<p>New item created successfully</p>";
+    } else {
+      echo "Error: " . $sql9 . "<br>" . $con->error;
+    }
+
+  } else {
+
+    for ($i=0; $i<sizeof($checkAttivo); $i++) {
+      $sql10 = "INSERT INTO item_author (ItemId, AuthorId)
+      VALUES ((SELECT MAX(id) FROM item), ('" . $checkAttivo[$i] . "'))";
+      if ($con->query($sql10) === TRUE) {
+        echo "<p>Author linked successfully</p>";
+      } else {
+        echo "Error: " . $sql10 . "<br>" . $con->error;
+      }
+    }
+
+  }
 
   if ($con->query($sql) === TRUE) {
     echo "<p>Record ($ud_ID) updated successfully</p><p><a href='javascript:history.go(-2);'>Back to Item View</a></p>";

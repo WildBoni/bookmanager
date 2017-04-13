@@ -107,6 +107,7 @@
                 <th>ID</th>
                 <th>Surname</th>
                 <th>Name</th>
+                <th>Auth. edit</th>
                 <th>Title</th>
                 <th>Category</th>
                 <th>Language1</th>
@@ -141,6 +142,7 @@
                     } else {
                       echo ("<td></td><td></td>");
                     } ?>
+                  <td><?php echo "<a href='edit_author.php?id=".$row3['authId']."'>Edit</a>" ?></td>
                   <td contenteditable="true" onBlur="saveToDatabase('item',this,'title','<?php echo $row["id"] ?>')" onClick="showEdit(this);"><?php echo $row["title"] ?></td>
                   <td><?php echo $row["category"] ?></td>
 

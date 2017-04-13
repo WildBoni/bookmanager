@@ -70,7 +70,60 @@
 	<script src="js/jquery-1.10.2.js"></script>
   <script src="js/bootstrap.min.js"></script>
 	<script>
-    $(document).on('click','.delete',function(){
+  //search author
+  $(document).ready(function(){
+	    $('.search-box input[type="text"]').on("keyup input", function(){
+	        /* Get input value on change */
+	        var inputVal = $(this).val();
+	        var resultDropdown = $(".result");
+	        if(inputVal.length){
+	            $.get("livesearch_author.php", {term: inputVal}).done(function(data){
+	                // Display the returned data in browser
+	                resultDropdown.html(data);
+	            });
+	        } else{
+	            resultDropdown.empty();
+	        }
+	    });
+	});
+
+  var autoreID = "";
+
+
+	$(document).on('click','.checkName',function(){
+		autoreID = $(this).val();
+		console.log(autoreID);
+	});
+
+
+  // Delete database value code
+  $(document).on('click','.delete',function(){
+    var element = $(this);
+    var formData = new FormData();
+    var del_id = element.attr('data-id');
+    var del_authid = element.attr('data-authid');
+    formData.append('id', del_id);
+    formData.append('authid', del_authid);
+    if(confirm("Are you sure you want to delete this?")) {
+      $.ajax({
+        type: "POST",
+        url: "ajaxdelete_author.php",
+        data: formData,
+        contentType: false,
+  			processData: false,
+        success: function(data){
+          for (var pair of formData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]);
+}
+        }
+      });
+      $(this).animate({ backgroundColor: "#003" }, "slow")
+      .animate({ opacity: "hide" }, "slow");
+    }
+    return false;
+  });
+
+    $(document).on('click','.delImg',function(){
 
       var element = $(this);
       var del_id = element.attr('data-id');
@@ -100,8 +153,23 @@
         <form class="form" action="update.php" enctype="multipart/form-data"  method="post">
           <input type="hidden" name="ID" value="<?=$UID;?>">
           <input type="hidden" name="authID" value="<?=$authID;?>">
-          Name: <input type="text" name="name" value="<?=$name?>"><br>
-          Surname: <input type="text" name="surname" value="<?=$surname?>"><br>
+
+          <div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<label>Author:</label>
+								<div class="search-box">
+					        <input type="text" autocomplete="off" placeholder="Search author..." />
+					      </div>
+							</div>
+						</div>
+						<div class="row result">
+
+				    </div>
+					</div>
+
+          <p style="margin-top:10px;">Author: <?=$name?> - <?=$surname?>  |
+            <a data-id="<?php echo $UID?>" data-authid="<?php echo $authID?>" class="delete" href="#">Delete assignment</a></p>
           Title: <input type="text" name="title" value="<?=$title?>"><br>
           Other: <input type="text" name="other" value="<?=$other?>"><br>
           Note: <input type="text" name="note" value="<?=$note?>"><br>
@@ -113,7 +181,7 @@
 				    <?php } ?>
 		      </div>
       		<?php if (!empty($image)) { ?>
-       		<a data-id="<?=$UID;?>" class="delete" href="#">Delete</a>
+       		<a data-id="<?=$UID;?>" class="delImg" href="#">Delete</a>
        		<?php } ?>
 	       	<div class="form-group">
     				<div class="row">
