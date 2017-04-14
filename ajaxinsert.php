@@ -23,6 +23,7 @@
     $language2ID = htmlspecialchars($_POST['language2']);
 		$image=($_FILES['fileToUpload']['name']);
     $autoreID = htmlspecialchars($_POST['autoreID']);
+    $checkAttivo = $_POST['checkAttivo'];
   }
 
   echo "<script type='text/javascript'>alert('$autoreID');</script>";
@@ -97,16 +98,7 @@
     }
   }
 
-  if($_POST["autoreID"] != "") {
-    $sql5 = "INSERT INTO item_author (ItemId, AuthorId)
-    VALUES ((SELECT MAX(id) FROM item), '$autoreID')";
-
-    if ($con->query($sql5) === TRUE) {
-      echo "<p>New item created successfully</p>";
-    } else {
-      echo "Error: " . $sql5 . "<br>" . $con->error;
-    }
-  } else {
+  if($_POST["autoreID"] == "") {
     $sql4 = "INSERT INTO author (name, surname, other)
     VALUES ('$name', '$surname', '')";
 
@@ -124,6 +116,19 @@
     } else {
       echo "Error: " . $sql9 . "<br>" . $con->error;
     }
+
+  } else {
+
+    for ($i=0; $i<sizeof($checkAttivo); $i++) {
+      $sql10 = "INSERT INTO item_author (ItemId, AuthorId)
+      VALUES ((SELECT MAX(id) FROM item), ('" . $checkAttivo[$i] . "'))";
+      if ($con->query($sql10) === TRUE) {
+        echo "<p>Author linked successfully</p>";
+      } else {
+        echo "Error: " . $sql10 . "<br>" . $con->error;
+      }
+    }
+
   }
 
   $con->close();
