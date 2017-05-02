@@ -15,7 +15,7 @@ if(isset($term)){
     // Attempt select query execution
     //$sql = "SELECT * FROM author WHERE name LIKE '%" . $term . "%' OR surname LIKE '%" . $term . "%' OR SELECT title FROM item WHERE title LIKE '%" . $term . "%' ";
 
-    $sql = "SELECT author.name, author.surname, item.title, item.id
+    $sql = "SELECT author.id AS authID, author.name, author.surname, item.title, item.id
       FROM item
         LEFT JOIN item_author ON item.id = item_author.ItemId
         LEFT JOIN author ON item_author.AuthorID = author.id
@@ -28,7 +28,7 @@ if(isset($term)){
             while($row = mysqli_fetch_array($result)){
                 echo "<p>" . $row['name'] . " | <strong>" . $row['surname'] . "</strong> | " . $row['title'] . "";
                 if(isset($_SESSION['userSession'])!="") {
-                  echo "| <a href='edit.php?id=".$row['id']. "'>Edit Item</a>";
+                  echo "| <a href='edit.php?id=".$row['id']. "'>Edit Item</a> | <a href='edit_author.php?id=".$row['authID']. "'>Edit Author</a>";
                  }
                  echo "</p>";
             }
